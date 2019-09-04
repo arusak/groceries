@@ -1,5 +1,7 @@
-export class HistoryRecord {
+import {ProductModel} from './product.model';
+
+export class HistoryRecordModel {
   id: string;
-  title: string;
+  product: ProductModel;
   count: number;
 }
