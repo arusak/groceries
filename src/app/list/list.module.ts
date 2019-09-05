@@ -4,11 +4,11 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {SharedModule} from '../shared/shared.module';
+import {AdderComponent} from './components/adder/adder.component';
 import {ListViewComponent} from './components/list-view/list-view.component';
 import {ListEffects} from './effects/list.effects';
 import {ListRoutingModule} from './list-routing.module';
-import {listReducer} from './reducers/list.reducer';
-import { AdderComponent } from './components/adder/adder.component';
+import {listReducerNg, metaReducers} from './reducers';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { AdderComponent } from './components/adder/adder.component';
   imports: [
     SharedModule,
     ListRoutingModule,
-    StoreModule.forRoot({list: listReducer}),
+    StoreModule.forFeature('list', listReducerNg, {metaReducers}),
     EffectsModule.forFeature([ListEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 10 // number of states to retain

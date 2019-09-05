@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter, pluck, takeUntil} from 'rxjs/operators';
@@ -10,7 +10,8 @@ import {remove, update} from '../../actions/list.actions';
 @Component({
   selector: 'app-list-view',
   templateUrl: './list-view.component.html',
-  styleUrls: ['./list-view.component.sass']
+  styleUrls: ['./list-view.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListViewComponent extends BasePage implements OnInit {
   items$: Observable<Array<SimpleListItemModel>>;

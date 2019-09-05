@@ -1,4 +1,4 @@
-import {Action, createReducer, on} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {SimpleListItemModel} from '../../models/simple-list-item.model';
 import * as ListApiActions from '../actions/list-api.actions';
 
@@ -12,12 +12,12 @@ export const initialListState: ListState = {
   error: undefined
 };
 
-const _listReducer = createReducer(
+export const listReducer = createReducer(
   initialListState,
   on(ListApiActions.addSuccess, (state, {items}) => {
     return {
       ...state,
-      items
+      items: [...items]
     };
   }),
   on(ListApiActions.addError, (state) => {
@@ -29,7 +29,7 @@ const _listReducer = createReducer(
   on(ListApiActions.updateSuccess, (state, {items}) => {
     return {
       ...state,
-      items
+      items: [...items]
     };
   }),
   on(ListApiActions.updateError, (state) => {
@@ -41,7 +41,7 @@ const _listReducer = createReducer(
   on(ListApiActions.removeSuccess, (state, {items}) => {
     return {
       ...state,
-      items
+      items: [...items]
     };
   }),
   on(ListApiActions.removeError, (state) => {
@@ -53,7 +53,7 @@ const _listReducer = createReducer(
   on(ListApiActions.getAllSuccess, (state, {items}) => {
     return {
       ...state,
-      items
+      items: [...items]
     };
   }),
   on(ListApiActions.getAllError, (state) => {
@@ -64,7 +64,3 @@ const _listReducer = createReducer(
     };
   }),
 );
-
-export function listReducer(state: ListState | undefined, action: Action) {
-  return _listReducer(state, action);
-}
