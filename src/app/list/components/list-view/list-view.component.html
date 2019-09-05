@@ -1,5 +1,5 @@
-<ul *ngIf="(list$ | async).length > 0; else empty">
-  <li *ngFor="let item of (list$ | async)">
+<ul *ngIf="(items$ | async).length > 0; else empty">
+  <li *ngFor="let item of (items$ | async)">
     <span class="mark"><input type="checkbox" [checked]="item.marked" #ch (change)="markItem(item, ch.checked)"></span>
     <span class="title">{{item.title}}</span>
     <span class="button"><button (click)="removeItem(item)">×</button></span>

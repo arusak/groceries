@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {filter, pluck} from 'rxjs/operators';
+import {filter, pluck, takeUntil} from 'rxjs/operators';
+import {BasePage} from '../../../base/base.page';
 import {ErrorService} from '../../../core/error.service';
 import {SimpleListItemModel} from '../../../models/simple-list-item.model';
 import {remove, update} from '../../actions/list.actions';
@@ -11,15 +12,16 @@ import {remove, update} from '../../actions/list.actions';
   templateUrl: './list-view.component.html',
   styleUrls: ['./list-view.component.sass']
 })
-export class ListViewComponent implements OnInit {
-  title$: Observable<string>;
-  list$: Observable<Array<SimpleListItemModel>>;
+export class ListViewComponent extends BasePage implements OnInit {
+  items$: Observable<Array<SimpleListItemModel>>;
   error$: Observable<string>;
 
   constructor(private errorService: ErrorService, private store: Store<any>) {
-    this.title$ = this.store.select('title');
-    this.list$ = this.store.select('list').pipe(pluck('items'));
-    this.error$ = this.store.select('list').pipe(pluck('error'), filter(v => v !== undefined));
+    super();
+
+    let list$ = this.store.select('list').pipe(takeUntil(this.unsubscribe$));
+    this.items$ = list$.pipe(pluck('items'));
+    this.error$ = list$.pipe(pluck('error'), filter(v => v !== undefined));
   }
 
   ngOnInit() {
