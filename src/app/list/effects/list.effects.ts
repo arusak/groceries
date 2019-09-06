@@ -13,7 +13,7 @@ import {
   updateSuccess
 } from '../actions/list-api.actions';
 import {add, getAll, remove, update} from '../actions/list.actions';
-import {ListService} from '../services/list.service';
+import {FirestoreListService} from '../services/firestore-list.service';
 
 @Injectable()
 export class ListEffects {
@@ -58,6 +58,6 @@ export class ListEffects {
     )
   ));
 
-  constructor(private actions$: Actions, private listService: ListService) {
+  constructor(private actions$: Actions, private listService: FirestoreListService) {
   }
 }
