@@ -21,7 +21,7 @@ export class ListEffects {
     ofType(getAll),
     startWith(getAll()),
     switchMapTo(
-      this.listService.getSimpleList().pipe(
+      this.listService.getList().pipe(
         map(list => getAllSuccess({items: list})),
         catchError(() => of(getAllError()))
       )
@@ -31,7 +31,7 @@ export class ListEffects {
   add$ = createEffect(() => this.actions$.pipe(
     ofType(add),
     pluck('title'),
-    mergeMap(title => this.listService.addSimple(title).pipe(
+    mergeMap(title => this.listService.add(title).pipe(
       map(items => addSuccess({items})),
       catchError(() => of(addError()))
       )
@@ -41,7 +41,7 @@ export class ListEffects {
   update$ = createEffect(() => this.actions$.pipe(
     ofType(update),
     pluck('item'),
-    mergeMap(item => this.listService.updateSimple(item).pipe(
+    mergeMap(item => this.listService.update(item).pipe(
       map(items => updateSuccess({items})),
       catchError(() => of(updateError()))
       )
@@ -51,7 +51,7 @@ export class ListEffects {
   remove$ = createEffect(() => this.actions$.pipe(
     ofType(remove),
     pluck('item'),
-    mergeMap(item => this.listService.removeSimple(item).pipe(
+    mergeMap(item => this.listService.remove(item).pipe(
       map(items => removeSuccess({items})),
       catchError(() => of(removeError()))
       )

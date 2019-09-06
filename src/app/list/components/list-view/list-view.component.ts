@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {filter, pluck, takeUntil} from 'rxjs/operators';
 import {BasePage} from '../../../base/base.page';
 import {ErrorService} from '../../../core/error.service';
-import {SimpleListItemModel} from '../../../models/simple-list-item.model';
+import {ListItemModel} from '../../../models/list-item.model';
 import {remove, update} from '../../actions/list.actions';
 
 @Component({
@@ -14,7 +14,7 @@ import {remove, update} from '../../actions/list.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListViewComponent extends BasePage implements OnInit {
-  items$: Observable<Array<SimpleListItemModel>>;
+  items$: Observable<Array<ListItemModel>>;
   error$: Observable<string>;
 
   constructor(private errorService: ErrorService, private store: Store<any>) {
@@ -29,11 +29,11 @@ export class ListViewComponent extends BasePage implements OnInit {
     this.error$.subscribe(error => this.errorService.showError(error));
   }
 
-  removeItem(item: SimpleListItemModel) {
+  removeItem(item: ListItemModel) {
     this.store.dispatch(remove({item: item}));
   }
 
-  markItem(item: SimpleListItemModel, checked: boolean) {
+  markItem(item: ListItemModel, checked: boolean) {
     this.store.dispatch(update({item: {...item, marked: checked}}));
   }
 }

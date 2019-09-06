@@ -1,9 +1,9 @@
 import {createReducer, on} from '@ngrx/store';
-import {SimpleListItemModel} from '../../models/simple-list-item.model';
+import {ListItemModel} from '../../models/list-item.model';
 import * as ListApiActions from '../actions/list-api.actions';
 
 export interface ListState {
-  items: Array<SimpleListItemModel>,
+  items: Array<ListItemModel>,
   error?: string
 }
 

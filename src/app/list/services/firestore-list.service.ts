@@ -2,32 +2,32 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {mergeMapTo} from 'rxjs/operators';
-import {SimpleListItemModel} from '../../models/simple-list-item.model';
-import {SimpleFirestoreService} from './simple-firestore.service';
+import {ListItemModel} from '../../models/list-item.model';
+import {ListFirestoreService} from './api/list-firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreListService {
-  constructor(private firestoreService: SimpleFirestoreService) {
+  constructor(private firestoreService: ListFirestoreService) {
   }
 
-  getSimpleList(): Observable<Array<SimpleListItemModel>> {
+  getList(): Observable<Array<ListItemModel>> {
     return this.firestoreService.collection$();
   }
 
-  addSimple(title: string): Observable<Array<SimpleListItemModel>> {
-    let newItem = {title, quantity: 1, marked: false};
+  add(title: string): Observable<Array<ListItemModel>> {
+    let newItem = ListItemModel.createByTitle(title);
     return fromPromise(this.firestoreService.create(newItem))
       .pipe(mergeMapTo(this.firestoreService.collection$()));
   }
 
-  updateSimple(item: SimpleListItemModel): Observable<Array<SimpleListItemModel>> {
+  update(item: ListItemModel): Observable<Array<ListItemModel>> {
     return fromPromise(this.firestoreService.update(item))
       .pipe(mergeMapTo(this.firestoreService.collection$()));
   }
 
-  removeSimple(item: SimpleListItemModel): Observable<Array<SimpleListItemModel>> {
+  remove(item: ListItemModel): Observable<Array<ListItemModel>> {
     return fromPromise(this.firestoreService.delete(item.id))
       .pipe(mergeMapTo(this.firestoreService.collection$()));
   }

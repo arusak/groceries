@@ -29,12 +29,13 @@ export abstract class BaseFirestoreService<T extends { id?: string }> {
 
   create(value: T): Promise<any> {
     const id = this.firestore.createId();
-    return this.collection.doc(id).set(Object.assign({}, {id}, value))
+    const doc = {...value, id};
+    return this.collection.doc(id).set(doc)
       .then(() => this.groupLog(`Firestore Service [${this.basePath}] [create]`, '[Id]', id, value));
   }
 
   update(item: T): Promise<any> {
-    return this.collection.doc(item.id).update(Object.assign({}, item))
+    return this.collection.doc(item.id).update({...item})
       .then(() => this.groupLog(`Firestore Service [${this.basePath}] [update]`, '[Id]', item.id, item));
   }
 

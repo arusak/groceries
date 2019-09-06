@@ -1,17 +1,21 @@
-import {ProductModel} from './product.model';
-
 export class ListItemModel {
-  id: string;
-  product: ProductModel;
-  done: boolean;
-  priority: number;
+  id?: string;
+  title: string;
   quantity: number;
+  marked: boolean;
+  priority: number;
+  order: number;
 
-  constructor(data: any) {
-    this.id = data.id;
-    //this.product =
-    this.done = data.done;
-    this.priority = data.priority;
-    this.quantity = data.quantity;
+  static createByTitle(title: string) {
+    return new ListItemModel(title, 1, false, 0, 0);
+  }
+
+  private constructor(title: string, quantity: number, marked: boolean, priority: number, order: number, id?: string) {
+    this.id = id;
+    this.title = title;
+    this.quantity = quantity;
+    this.marked = marked;
+    this.priority = priority;
+    this.order = order;
   }
 }
