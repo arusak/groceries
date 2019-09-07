@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {add} from '../../actions/list.actions';
+import {add} from '../../list-store/actions/list.actions';
 
 @Component({
   selector: 'app-adder',

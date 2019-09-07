@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {ListItemModel} from '../../models/list-item.model';
+import {ListItemModel} from '../../../models/list-item.model';
 
 export const getAllSuccess = createAction('[List API] Read success', props<{ items: Array<ListItemModel> }>());
 export const getAllError = createAction('[List API] Read error');

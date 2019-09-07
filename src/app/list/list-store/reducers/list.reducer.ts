@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {ListItemModel} from '../../models/list-item.model';
+import {ListItemModel} from '../../../models/list-item.model';
 import * as ListApiActions from '../actions/list-api.actions';
 
 export interface ListState {

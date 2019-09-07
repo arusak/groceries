@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {filter, pluck, takeUntil} from 'rxjs/operators';
+import {filter, takeUntil} from 'rxjs/operators';
 import {BasePage} from '../../../base/base.page';
 import {ErrorService} from '../../../core/error.service';
 import {ListItemModel} from '../../../models/list-item.model';
-import {remove, update} from '../../actions/list.actions';
+import {remove, update} from '../../list-store/actions/list.actions';
+import {selectListError, selectListItems} from '../../list-store/selectors/selectors';
 
 @Component({
   selector: 'app-list-view',
@@ -20,9 +21,8 @@ export class ListViewComponent extends BasePage implements OnInit {
   constructor(private errorService: ErrorService, private store: Store<any>) {
     super();
 
-    let list$ = this.store.select('list').pipe(takeUntil(this.unsubscribe$));
-    this.items$ = list$.pipe(pluck('items'));
-    this.error$ = list$.pipe(pluck('error'), filter(v => v !== undefined));
+    this.items$ = this.store.select(selectListItems).pipe(takeUntil(this.unsubscribe$));
+    this.error$ = this.store.select(selectListError).pipe(takeUntil(this.unsubscribe$), filter((v: string) => v !== undefined));
   }
 
   ngOnInit() {

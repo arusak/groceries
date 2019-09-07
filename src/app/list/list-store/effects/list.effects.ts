@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap, pluck, startWith, switchMapTo} from 'rxjs/operators';
+import {ListService} from '../../services/list.service';
 import {
   addError,
   addSuccess,
@@ -13,7 +14,6 @@ import {
   updateSuccess
 } from '../actions/list-api.actions';
 import {add, getAll, remove, update} from '../actions/list.actions';
-import {FirestoreListService} from '../services/firestore-list.service';
 
 @Injectable()
 export class ListEffects {
@@ -58,6 +58,6 @@ export class ListEffects {
     )
   ));
 
-  constructor(private actions$: Actions, private listService: FirestoreListService) {
+  constructor(private actions$: Actions, private listService: ListService) {
   }
 }
