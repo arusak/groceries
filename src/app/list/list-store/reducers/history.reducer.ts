@@ -20,6 +20,7 @@ export const historyReducer = createReducer(
   on(historyApiActions.addSuccess, (state, {items}) => {
     return {
       ...state,
+      filter: '',
       items: [...items]
     };
   }),

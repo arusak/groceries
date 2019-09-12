@@ -6,7 +6,7 @@ import {BasePage} from '../../../base/base.page';
 import {ErrorService} from '../../../core/error.service';
 import {ListItemModel} from '../../../models/list-item.model';
 import {remove, update} from '../../list-store/actions/list.actions';
-import {selectListError, selectListItems} from '../../list-store/selectors/selectors';
+import {selectListError, selectListItems} from '../../list-store/selectors/list.selectors';
 
 @Component({
   selector: 'app-list-view',

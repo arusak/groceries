@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {HistoryItemModel} from '../../../models/history-item.model';
 import {historyActions} from '../../list-store/actions/history.actions';
 import {addToList} from '../../list-store/actions/list.actions';
-import {selectFilteredHistoryItems} from '../../list-store/selectors/selectors';
+import {selectFilteredHistoryItems} from '../../list-store/selectors/history.selectors';
 
 @Component({
   selector: 'app-adder',
