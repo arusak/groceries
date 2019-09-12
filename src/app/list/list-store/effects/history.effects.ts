@@ -3,28 +3,37 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap, pluck, startWith, switchMapTo} from 'rxjs/operators';
 import {HistoryService} from '../../services/history.service';
-import {addError, addSuccess, getAllError, getAllSuccess} from '../actions/history-api.actions';
-import {add, getAll} from '../actions/history.actions';
+import {historyApiActions} from '../actions/history-api.actions';
+import {historyActions} from '../actions/history.actions';
 
 @Injectable()
 export class HistoryEffects {
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(getAll),
-    startWith(getAll()),
+    ofType(historyActions.getAll),
+    startWith(historyActions.getAll()),
     switchMapTo(
       this.historyService.getAll().pipe(
-        map(list => getAllSuccess({items: list})),
-        catchError(() => of(getAllError()))
+        map(list => historyApiActions.getAllSuccess({items: list})),
+        catchError(() => of(historyApiActions.getAllError()))
       )
     )
   ));
 
-  add$ = createEffect(() => this.actions$.pipe(
-    ofType(add),
+  addToHistory$ = createEffect(() => this.actions$.pipe(
+    ofType(historyActions.add),
     pluck('title'),
     mergeMap(title => this.historyService.add(title).pipe(
-      map(items => addSuccess({items})),
-      catchError(() => of(addError()))
+      map(items => historyApiActions.addSuccess({items})),
+      catchError(() => of(historyApiActions.addError()))
+      )
+    )
+  ));
+
+  updateItem$ = createEffect(() => this.actions$.pipe(
+    ofType(historyActions.updateItem),
+    mergeMap(({item}) => this.historyService.update(item).pipe(
+      map(item => historyApiActions.updateSuccess({item})),
+      catchError(() => of(historyApiActions.updateError()))
       )
     )
   ));

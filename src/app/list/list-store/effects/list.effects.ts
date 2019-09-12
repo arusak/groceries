@@ -13,7 +13,7 @@ import {
   updateError,
   updateSuccess
 } from '../actions/list-api.actions';
-import {add, getAll, remove, update} from '../actions/list.actions';
+import {addToList, getAll, remove, update} from '../actions/list.actions';
 
 @Injectable()
 export class ListEffects {
@@ -29,7 +29,7 @@ export class ListEffects {
   ));
 
   add$ = createEffect(() => this.actions$.pipe(
-    ofType(add),
+    ofType(addToList),
     pluck('title'),
     mergeMap(title => this.listService.add(title).pipe(
       map(items => addSuccess({items})),

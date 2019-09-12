@@ -5,11 +5,13 @@ import {AdderComponent} from './components/adder/adder.component';
 import {ListViewComponent} from './components/list-view/list-view.component';
 import {ListRoutingModule} from './list-routing.module';
 import {ListStoreModule} from './list-store/list-store.module';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
     ListViewComponent,
-    AdderComponent
+    AdderComponent,
+    HistoryComponent
   ],
   imports: [
     SharedModule,

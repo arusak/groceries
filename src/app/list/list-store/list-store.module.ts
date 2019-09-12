@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
+import {HistoryEffects} from './effects/history.effects';
 import {ListEffects} from './effects/list.effects';
 import {metaReducers, reducers} from './reducers';
 
@@ -8,7 +9,7 @@ import {metaReducers, reducers} from './reducers';
   declarations: [],
   imports: [
     StoreModule.forFeature('list', reducers, {metaReducers}),
-    EffectsModule.forFeature([ListEffects]),
+    EffectsModule.forFeature([ListEffects, HistoryEffects]),
   ]
 })
 export class ListStoreModule {

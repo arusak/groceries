@@ -1,0 +1,5 @@
+<ul *ngIf="list.length > 0">
+  <li *ngFor="let item of list" (click)="choose(item)" class="selectable">
+    {{item.title}}
+  </li>
+</ul>

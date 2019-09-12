@@ -21,4 +21,9 @@ export class HistoryService {
     return fromPromise(this.firestoreService.create(newItem))
       .pipe(mergeMapTo(this.firestoreService.collection$()));
   }
+
+  update(item: HistoryItemModel): Observable<HistoryItemModel> {
+    return fromPromise(this.firestoreService.update(item))
+      .pipe(mergeMapTo(this.firestoreService.doc$(item.id)));
+  }
 }

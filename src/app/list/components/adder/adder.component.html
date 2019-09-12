@@ -1,2 +1,8 @@
-<input type="text" [(ngModel)]="newItem">
-<button (click)="submit()">ok</button>
+<input type="text" [(ngModel)]="userInput" (ngModelChange)="onUserInput()">
+
+<div *ngIf="userInput?.trim().length > 0" class="selectable new-item" (click)="addFromInput(userInput)">
+  {{userInput}}
+  <span class="icon">+</span>
+</div>
+
+<app-history [list]="history$ | async" (onChoose)="addItem($event)"></app-history>

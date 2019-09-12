@@ -14,7 +14,7 @@ export class HistoryItemModel {
     this.count = count;
   }
 
-  increaseCount() {
-    this.count++;
+  static increaseCount(item) {
+    return new HistoryItemModel(item.title, item.count + 1, item.id);
   }
 }
