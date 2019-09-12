@@ -6,12 +6,14 @@ import {ListViewComponent} from './components/list-view/list-view.component';
 import {ListRoutingModule} from './list-routing.module';
 import {ListStoreModule} from './list-store/list-store.module';
 import { HistoryComponent } from './components/history/history.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
     ListViewComponent,
     AdderComponent,
-    HistoryComponent
+    HistoryComponent,
+    ListComponent
   ],
   imports: [
     SharedModule,

@@ -1,0 +1,11 @@
+<ul *ngIf="list.length > 0; else empty">
+  <li *ngFor="let item of list" [ngClass]="{marked: item.marked}">
+    <span class="mark"><input type="checkbox" #ch [checked]="item.marked" (change)="mark(item, ch.checked)"></span>
+    <span class="title">{{item.title}}</span>
+    <span class="button"><button (click)="removeItem.emit(item)">×</button></span>
+  </li>
+</ul>
+
+<ng-template #empty>
+  Nothing here
+</ng-template>

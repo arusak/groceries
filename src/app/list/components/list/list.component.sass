@@ -1,0 +1,15 @@
+li
+  list-style-type: none
+  display: flex
+
+  &.marked .title
+    text-decoration: line-through
+    color: slategrey
+
+  + li
+    margin: 0.5rem 0 0 0
+
+  .title
+    flex: 1
+    padding: 0 0.25rem
+

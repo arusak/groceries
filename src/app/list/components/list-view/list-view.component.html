@@ -1,13 +1,5 @@
-<ul *ngIf="(items$ | async).length > 0; else empty">
-  <li *ngFor="let item of (items$ | async)">
-    <span class="mark"><input type="checkbox" [checked]="item.marked" #ch (change)="markItem(item, ch.checked)"></span>
-    <span class="title">{{item.title}}</span>
-    <span class="button"><button (click)="removeItem(item)">×</button></span>
-  </li>
-</ul>
-
-<ng-template #empty>
-  Nothing here
-</ng-template>
+<app-list [list]="items$ | async"
+          (removeItem)="removeItem($event)"
+          (updateItem)="updateItem($event)"></app-list>
 
 <app-adder></app-adder>

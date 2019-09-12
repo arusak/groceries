@@ -33,7 +33,7 @@ export class ListViewComponent extends BasePage implements OnInit {
     this.store.dispatch(remove({item: item}));
   }
 
-  markItem(item: ListItemModel, checked: boolean) {
-    this.store.dispatch(update({item: {...item, marked: checked}}));
+  updateItem(item: ListItemModel) {
+    this.store.dispatch(update({item}));
   }
 }
