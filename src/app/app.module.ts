@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {MatToolbarModule} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -17,6 +18,7 @@ import {ListModule} from './list/list.module';
     ListModule,
     AppRoutingModule,
     NoopAnimationsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,19 @@
-<input type="text" [(ngModel)]="userInput" (ngModelChange)="onUserInput()">
+<mat-card>
+  <mat-form-field class="filter">
+    <input matInput
+           placeholder="Add item..."
+           [(ngModel)]="userInput"
+           (ngModelChange)="onUserInput()"
+    >
+  </mat-form-field>
 
-<div *ngIf="userInput?.trim().length > 0" class="selectable new-item" (click)="addFromInput(userInput)">
-  {{userInput}}
-  <span class="icon">+</span>
-</div>
+  <div *ngIf="userInput?.trim().length > 0"
+       class="new-item"
+       (click)="addFromInput(userInput)">
+    <span class="title">{{userInput}}</span>
+    <mat-icon class="icon" color="accent">add_circle</mat-icon>
+  </div>
 
-<app-history [list]="history$ | async" (onChoose)="addItem($event)"></app-history>
+  <app-history [list]="history$ | async" (onChoose)="addItem($event)"></app-history>
+
+</mat-card>

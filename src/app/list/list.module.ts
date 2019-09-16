@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatCardModule} from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {AdderComponent} from './components/adder/adder.component';
 import {ListViewComponent} from './components/list-view/list-view.component';
@@ -19,7 +20,7 @@ import { ListComponent } from './components/list/list.component';
     SharedModule,
     ListRoutingModule,
     ListStoreModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class ListModule {

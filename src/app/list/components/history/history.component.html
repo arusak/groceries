@@ -1,5 +1,9 @@
-<ul *ngIf="list.length > 0">
-  <li *ngFor="let item of list" (click)="choose(item)" class="selectable">
-    {{item.title}} ({{item.count}})
-  </li>
-</ul>
+<mat-action-list *ngIf="list.length > 0">
+  <mat-list-item *ngFor="let item of list"
+                 (click)="choose(item)"
+                 class="item"
+  >
+    <span class="title">{{item.title}}</span>
+    <span class="count">{{item.count}}</span>
+  </mat-list-item>
+</mat-action-list>
