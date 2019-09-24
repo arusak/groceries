@@ -6,29 +6,50 @@ import {HistoryState} from '../reducers/history.reducer';
 import {selectListFeatureState} from './feature.selector';
 import {selectListItems} from './list.selectors';
 
-export const selectHistoryState = createSelector(selectListFeatureState, (moduleState: ListModuleState) => moduleState.history);
-export const selectHistoryFilter = createSelector(selectHistoryState, (state: HistoryState) => state.filter);
+const selectHistoryState = createSelector(
+  selectListFeatureState,
+  (moduleState: ListModuleState) => moduleState.history
+);
+
+export const selectHistoryFilter = createSelector(
+  selectHistoryState,
+  (state: HistoryState) => state.filter
+);
 
 export const selectAllHistoryItems = createSelector(
   selectHistoryState,
-  (state: HistoryState) => state.items.slice(0).sort(
-    (i1, i2) => i2.count - i1.count || i1.title.localeCompare(i2.title))
+  (state: HistoryState) => state.items.slice(0).sort(listItemsComparer)
 );
 
 export const selectUnusedHistoryItems = createSelector(
   selectAllHistoryItems,
   selectListItems,
   (history: Array<HistoryItemModel>, list: Array<ListItemModel>) =>
-    history.filter(historyItem => !list.map(listItem => listItem.title).includes(historyItem.title))
+    history.filter(historyItem => filterOutIfInList(historyItem, list))
 );
 
 export const selectFilteredHistoryItems = createSelector(
   selectUnusedHistoryItems,
   selectHistoryFilter,
-  (items: HistoryItemModel[], filter: string) => {
-    if (!filter) {
-      return items.slice(0, 10);
-    } else {
-      return items.filter(item => item.title.includes(filter));
-    }
-  });
+  prepareHistory
+);
+
+function prepareHistory(list: Readonly<Array<HistoryItemModel>>, filter: string): Array<HistoryItemModel> {
+  return filter ? filterItemsByTitle(list, filter) : selectTopItems(list);
+}
+
+function selectTopItems(list: Readonly<Array<HistoryItemModel>>): Array<HistoryItemModel> {
+  return list.slice(0, 10);
+}
+
+function filterItemsByTitle(list: Readonly<Array<HistoryItemModel>>, filter: string): Array<HistoryItemModel> {
+  return list.filter(item => item.title.includes(filter));
+}
+
+function filterOutIfInList(historyItem, list) {
+  return !list.map(listItem => listItem.title).includes(historyItem.title);
+}
+
+function listItemsComparer(i1, i2) {
+  return i2.count - i1.count || i1.title.localeCompare(i2.title);
+}
