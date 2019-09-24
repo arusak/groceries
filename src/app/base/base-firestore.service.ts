@@ -12,23 +12,23 @@ export abstract class BaseFirestoreService<T extends { id?: string }> {
   protected abstract basePath: string;
 
   constructor(
-    @Inject(AngularFirestore) protected firestore: AngularFirestore,
+    @Inject(AngularFirestore) protected db: AngularFirestore,
   ) {
 
   }
 
   doc$(id: string): Observable<T> {
-    return this.firestore.doc<T>(`${this.basePath}/${id}`).valueChanges()
+    return this.db.doc<T>(`${this.basePath}/${id}`).valueChanges()
       .pipe(tap(doc => this.groupLog(`Firestore Streaming [${this.basePath}] [doc$] ${id}`, doc)));
   }
 
   collection$(queryFn?: QueryFn): Observable<T[]> {
-    return this.firestore.collection<T>(`${this.basePath}`, queryFn).valueChanges()
+    return this.db.collection<T>(`${this.basePath}`, queryFn).valueChanges()
       .pipe(tap(collection => this.groupLog(`Firestore Streaming [${this.basePath}] [collection$]`, collection)),);
   }
 
   create(value: T): Promise<any> {
-    const id = this.firestore.createId();
+    const id = this.db.createId();
     const doc = {...value, id};
     return this.collection.doc(id).set(doc)
       .then(() => this.groupLog(`Firestore Service [${this.basePath}] [create]`, '[Id]', id, value));
@@ -45,13 +45,13 @@ export abstract class BaseFirestoreService<T extends { id?: string }> {
   }
 
   private get collection() {
-    return this.firestore.collection<T>(`${this.basePath}`);
+    return this.db.collection<T>(`${this.basePath}`);
   }
 
   private groupLog(title: string, ...content: any) {
     if (!environment.production) {
       console.groupCollapsed(title);
-      console.log(content);
+      console.log(...content);
       console.groupEnd();
     }
   }
