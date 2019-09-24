@@ -19,16 +19,16 @@ export class ListService {
   add(title: string): Observable<Array<ListItemModel>> {
     let newItem = ListItemModel.createByTitle(title);
     return fromPromise(this.firestoreService.create(newItem))
-      .pipe(mergeMapTo(this.firestoreService.collection$()));
+      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
   }
 
   update(item: ListItemModel): Observable<Array<ListItemModel>> {
     return fromPromise(this.firestoreService.update(item))
-      .pipe(mergeMapTo(this.firestoreService.collection$()));
+      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
   }
 
   remove(item: ListItemModel): Observable<Array<ListItemModel>> {
     return fromPromise(this.firestoreService.delete(item.id))
-      .pipe(mergeMapTo(this.firestoreService.collection$()));
+      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
   }
 }
