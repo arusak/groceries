@@ -5,7 +5,7 @@ import {filter, takeUntil} from 'rxjs/operators';
 import {BasePage} from '../../../base/base.page';
 import {ErrorService} from '../../../core/error.service';
 import {ListItemModel} from '../../../models/list-item.model';
-import {remove, update} from '../../list-store/actions/list.actions';
+import {remove, removeMarked, update} from '../../list-store/actions/list.actions';
 import {selectListError, selectListItems} from '../../list-store/selectors/list.selectors';
 
 @Component({
@@ -35,5 +35,9 @@ export class ListViewComponent extends BasePage implements OnInit {
 
   updateItem(item: ListItemModel) {
     this.store.dispatch(update({item}));
+  }
+
+  cleanup() {
+    this.store.dispatch(removeMarked());
   }
 }

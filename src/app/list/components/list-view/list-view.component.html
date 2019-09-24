@@ -1,5 +1,9 @@
-<app-list [list]="items$ | async"
-          (removeItem)="removeItem($event)"
-          (updateItem)="updateItem($event)"></app-list>
+<div class="list">
+  <app-list [list]="items$ | async"
+            (removeItem)="removeItem($event)"
+            (updateItem)="updateItem($event)"></app-list>
+
+  <app-list-toolbar (cleanup)="cleanup()"></app-list-toolbar>
+</div>
 
 <app-adder></app-adder>

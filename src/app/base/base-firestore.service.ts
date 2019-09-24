@@ -39,9 +39,30 @@ export abstract class BaseFirestoreService<T extends { id?: string }> {
       .then(() => this.groupLog(`Firestore Service [${this.basePath}] [update]`, '[Id]', item.id, item));
   }
 
-  delete(id: string): Promise<any> {
+  delete(id: string): Promise<any>;
+  delete(ids: string[]): Promise<any>;
+  delete(arg: string | string[]): Promise<any> {
+    if (Array.isArray(arg)) {
+      return this.deleteMany(arg);
+    } else {
+      return this.deleteSingle(arg);
+    }
+  }
+
+  private deleteSingle(id: string): Promise<any> {
     return this.collection.doc(id).delete()
       .then(() => this.groupLog(`Firestore Service [${this.basePath}] [delete]`, '[Id]', id));
+  }
+
+  private deleteMany(ids: string[]): Promise<any> {
+    const batch = this.db.firestore.batch();
+    ids.forEach(id => {
+      let doc = this.collection.doc(id);
+      return batch.delete(doc.ref);
+    });
+
+    return batch.commit()
+      .then(() => this.groupLog(`Firestore Service [${this.basePath}] [delete]`, '[Ids]', ids));
   }
 
   private get collection() {
