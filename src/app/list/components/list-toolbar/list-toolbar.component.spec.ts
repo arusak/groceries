@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ListToolbarComponent } from './list-toolbar.component';
+import {ListToolbarComponent} from './list-toolbar.component';
 
 describe('ListToolbarComponent', () => {
   let component: ListToolbarComponent;
@@ -8,9 +8,9 @@ describe('ListToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListToolbarComponent ]
+      declarations: [ListToolbarComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import {createReducer, on} from '@ngrx/store';
 import {ListItemModel} from '../../../models/list-item.model';
-import * as ListApiActions from '../actions/list-api.actions';
+import {listApiActions} from '../actions/list-api.actions';
 
 export interface ListState {
   items: Array<ListItemModel>,
@@ -14,49 +14,49 @@ export const initialListState: ListState = {
 
 export const listReducer = createReducer(
   initialListState,
-  on(ListApiActions.addSuccess, (state, {items}) => {
+  on(listApiActions.addSuccess, (state, {items}) => {
     return {
       ...state,
       items: [...items]
     };
   }),
-  on(ListApiActions.addError, (state) => {
+  on(listApiActions.addError, (state) => {
     return {
       ...state,
       error: 'Error adding a new item'
     };
   }),
-  on(ListApiActions.updateSuccess, (state, {items}) => {
+  on(listApiActions.updateSuccess, (state, {items}) => {
     return {
       ...state,
       items: [...items]
     };
   }),
-  on(ListApiActions.updateError, (state) => {
+  on(listApiActions.updateError, (state) => {
     return {
       ...state,
       error: 'Error updating an item'
     };
   }),
-  on(ListApiActions.removeSuccess, (state, {items}) => {
+  on(listApiActions.removeSuccess, (state, {items}) => {
     return {
       ...state,
       items: [...items]
     };
   }),
-  on(ListApiActions.removeError, (state) => {
+  on(listApiActions.removeError, (state) => {
     return {
       ...state,
       error: 'Error removing an item'
     };
   }),
-  on(ListApiActions.getAllSuccess, (state, {items}) => {
+  on(listApiActions.getAllSuccess, (state, {items}) => {
     return {
       ...state,
       items: [...items]
     };
   }),
-  on(ListApiActions.getAllError, (state) => {
+  on(listApiActions.getAllError, (state) => {
     return {
       ...state,
       items: [],

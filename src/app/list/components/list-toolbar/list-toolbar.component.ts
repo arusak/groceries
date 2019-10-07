@@ -5,6 +5,6 @@ import {Component, EventEmitter, Output} from '@angular/core';
   templateUrl: './list-toolbar.component.html',
   styleUrls: ['./list-toolbar.component.sass']
 })
-export class ListToolbarComponent  {
+export class ListToolbarComponent {
   @Output() cleanup = new EventEmitter();
 }

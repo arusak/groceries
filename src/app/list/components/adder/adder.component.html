@@ -14,6 +14,6 @@
     <mat-icon class="icon" color="accent">add_circle</mat-icon>
   </div>
 
-  <app-history [list]="history$ | async" (onChoose)="addItem($event)"></app-history>
+  <app-history [list]="history$ | async" (onChoose)="addFromHistory($event)"></app-history>
 
 </mat-card>
