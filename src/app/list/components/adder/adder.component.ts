@@ -14,6 +14,7 @@ import {selectFilteredHistoryItems} from '../../list-store/selectors/history.sel
 })
 export class AdderComponent implements OnInit {
   userInput: string;
+  readonly titleMaxLength = 40;
   history$: Observable<Array<HistoryItemModel>>;
 
   constructor(private store: Store<any>) {
@@ -24,6 +25,10 @@ export class AdderComponent implements OnInit {
   }
 
   addFromInput(title: string) {
+    // trim whitespace, capitalize 1st word, trim to max length
+    title = title.trim();
+    title = title.charAt(0).toLocaleUpperCase() + title.substr(1);
+    title = title.substr(0, this.titleMaxLength);
     this.addItem(title, historyActions.add({title}));
   }
 

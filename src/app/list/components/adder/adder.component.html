@@ -1,6 +1,7 @@
 <mat-card>
   <mat-form-field class="filter">
     <input matInput
+           [maxlength]="titleMaxLength"
            placeholder="Add item..."
            [(ngModel)]="userInput"
            (ngModelChange)="onUserInput()"
