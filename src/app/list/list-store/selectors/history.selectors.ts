@@ -43,7 +43,7 @@ function selectTopItems(list: Readonly<Array<HistoryItemModel>>): Array<HistoryI
 }
 
 function filterItemsByTitle(list: Readonly<Array<HistoryItemModel>>, filter: string): Array<HistoryItemModel> {
-  return list.filter(item => item.title.includes(filter));
+  return list.filter(item => item.title.toLowerCase().startsWith(filter.toLowerCase()));
 }
 
 function filterOutIfInList(historyItem, list) {
