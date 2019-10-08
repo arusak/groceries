@@ -23,7 +23,7 @@ export class ListEffects {
     ofType(listActions.addToList),
     pluck('title'),
     mergeMap(title => this.listService.add(title).pipe(
-      map(items => listApiActions.addSuccess({items})),
+      map(item => listApiActions.addSuccess({item})),
       catchError(() => of(listApiActions.addError()))
       )
     )
@@ -33,7 +33,7 @@ export class ListEffects {
     ofType(listActions.update),
     pluck('item'),
     mergeMap(item => this.listService.update(item).pipe(
-      map(items => listApiActions.updateSuccess({items})),
+      map(item => listApiActions.updateSuccess({item})),
       catchError(() => of(listApiActions.updateError()))
       )
     )
@@ -43,7 +43,7 @@ export class ListEffects {
     ofType(listActions.remove),
     pluck('item'),
     mergeMap(item => this.listService.remove(item).pipe(
-      map(items => listApiActions.removeSuccess({items})),
+      map(item => listApiActions.removeSuccess({item})),
       catchError(() => of(listApiActions.removeError()))
       )
     )
@@ -52,8 +52,8 @@ export class ListEffects {
   removeMarked$ = createEffect(() => this.actions$.pipe(
     ofType(listActions.removeMarked),
     mergeMap(() => this.listService.removeMarked().pipe(
-      map(items => listApiActions.removeSuccess({items})),
-      catchError(() => of(listApiActions.removeError()))
+      map(items => listApiActions.batchRemoveSuccess({items})),
+      catchError(() => of(listApiActions.batchRemoveError()))
       )
     )
   ));

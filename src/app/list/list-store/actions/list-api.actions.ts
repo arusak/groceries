@@ -5,12 +5,15 @@ export const listApiActions = {
   getAllSuccess: createAction('[List API] Read success', props<{ items: Array<ListItemModel> }>()),
   getAllError: createAction('[List API] Read error'),
 
-  addSuccess: createAction('[List API] Add success', props<{ items: Array<ListItemModel> }>()),
+  addSuccess: createAction('[List API] Add success', props<{ item: ListItemModel }>()),
   addError: createAction('[List API] Add error'),
 
-  removeSuccess: createAction('[List API] Remove success', props<{ items: Array<ListItemModel> }>()),
+  removeSuccess: createAction('[List API] Remove success', props<{ item: ListItemModel }>()),
   removeError: createAction('[List API] Remove error'),
 
-  updateSuccess: createAction('[List API] Update success', props<{ items: Array<ListItemModel> }>()),
+  batchRemoveSuccess: createAction('[List API] Batch remove success', props<{ items: Array<ListItemModel> }>()),
+  batchRemoveError: createAction('[List API] Batch remove error'),
+
+  updateSuccess: createAction('[List API] Update success', props<{ item: ListItemModel }>()),
   updateError: createAction('[List API] Update error'),
 };

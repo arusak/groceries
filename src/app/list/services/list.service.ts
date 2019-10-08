@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {mergeMap, mergeMapTo, take} from 'rxjs/operators';
+import {mapTo, mergeMap, mergeMapTo, take} from 'rxjs/operators';
 import {ListItemModel} from '../../models/list-item.model';
 import {ListFirestoreService} from './api/list-firestore.service';
 
@@ -16,15 +16,15 @@ export class ListService {
     return this.firestoreService.collection$();
   }
 
-  add(title: string): Observable<Array<ListItemModel>> {
+  add(title: string): Observable<ListItemModel> {
     let newItem = ListItemModel.createByTitle(title);
     return fromPromise(this.firestoreService.create(newItem))
-      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
+      .pipe(mapTo(newItem));
   }
 
-  update(item: ListItemModel): Observable<Array<ListItemModel>> {
+  update(item: ListItemModel): Observable<ListItemModel> {
     return fromPromise(this.firestoreService.update(item))
-      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
+      .pipe(mapTo(item));
   }
 
   removeMarked(): Observable<Array<ListItemModel>> {
@@ -39,8 +39,8 @@ export class ListService {
     );
   }
 
-  remove(item: ListItemModel): Observable<Array<ListItemModel>> {
+  remove(item: ListItemModel): Observable<ListItemModel> {
     return fromPromise(this.firestoreService.delete(item.id))
-      .pipe(mergeMapTo(this.firestoreService.collection$()), take(1));
+      .pipe(mapTo(item));
   }
 }

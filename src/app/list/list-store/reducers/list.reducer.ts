@@ -14,10 +14,11 @@ export const initialListState: ListState = {
 
 export const listReducer = createReducer(
   initialListState,
-  on(listApiActions.addSuccess, (state, {items}) => {
+  on(listApiActions.addSuccess, (state, {item}) => {
+    let updatedItems = [...state.items, item];
     return {
       ...state,
-      items: [...items]
+      items: updatedItems
     };
   }),
   on(listApiActions.addError, (state) => {
@@ -26,10 +27,13 @@ export const listReducer = createReducer(
       error: 'Error adding a new item'
     };
   }),
-  on(listApiActions.updateSuccess, (state, {items}) => {
+  on(listApiActions.updateSuccess, (state, {item}) => {
+    let updatedItemIndex = state.items.findIndex(cur => cur.id === item.id);
+    let updatedItems = [...state.items];
+    updatedItems[updatedItemIndex] = item;
     return {
       ...state,
-      items: [...items]
+      items: updatedItems
     };
   }),
   on(listApiActions.updateError, (state) => {
@@ -38,16 +42,30 @@ export const listReducer = createReducer(
       error: 'Error updating an item'
     };
   }),
-  on(listApiActions.removeSuccess, (state, {items}) => {
+  on(listApiActions.removeSuccess, (state, {item}) => {
+    let updatedItemIndex = state.items.findIndex(cur => cur.id === item.id);
+    let updatedItems = [...state.items].splice(updatedItemIndex, 1);
     return {
       ...state,
-      items: [...items]
+      items: updatedItems
     };
   }),
   on(listApiActions.removeError, (state) => {
     return {
       ...state,
       error: 'Error removing an item'
+    };
+  }),
+  on(listApiActions.batchRemoveSuccess, (state, {items}) => {
+    return {
+      ...state,
+      items: [...items]
+    };
+  }),
+  on(listApiActions.batchRemoveError, (state) => {
+    return {
+      ...state,
+      error: 'Error removing items'
     };
   }),
   on(listApiActions.getAllSuccess, (state, {items}) => {
