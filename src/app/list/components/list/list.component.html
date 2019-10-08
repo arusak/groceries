@@ -1,5 +1,5 @@
 <mat-card class="card">
-  <mat-list *ngIf="list.length > 0; else empty">
+  <mat-list class="list" *ngIf="list.length > 0; else empty">
     <mat-list-item *ngFor="let item of list"
                    class="item"
                    [ngClass]="{marked: item.marked}">

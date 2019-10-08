@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 import {BasePage} from '../../../base/base.page';
-import {ErrorService} from '../../../core/error.service';
+import {ErrorService} from '../../../services/error.service';
 import {ListItemModel} from '../../../models/list-item.model';
 import {listActions} from '../../list-store/actions/list.actions';
 import {selectListError, selectListItems} from '../../list-store/selectors/list.selectors';
