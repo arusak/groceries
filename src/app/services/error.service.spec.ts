@@ -1,12 +1,29 @@
-import {TestBed} from '@angular/core/testing';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {createServiceFactory, SpectatorService, SpyObject} from '@ngneat/spectator';
 import {ErrorService} from './error.service';
 
 describe('ErrorService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let snackBar: SpyObject<MatSnackBar>;
 
-  it('should be created', () => {
-    const service: ErrorService = TestBed.get(ErrorService);
-    expect(service).toBeTruthy();
+  let create = createServiceFactory({
+    service: ErrorService,
+    mocks: [MatSnackBar]
+  });
+
+  let spectator: SpectatorService<ErrorService>;
+
+  beforeEach(() => {
+    spectator = create();
+    snackBar = spectator.get(MatSnackBar);
+  });
+
+  it('exists', () => {
+    expect(spectator.service).toBeDefined();
+  });
+
+  it('can pop open a snackbar notification', () => {
+    const errorText = 'Sample error';
+    spectator.service.showError(errorText);
+    expect(snackBar.open).toHaveBeenCalledWith(errorText, 'Dismiss', {duration: 10000});
   });
 });
