@@ -1,13 +1,17 @@
 import {NgModule} from '@angular/core';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {MatToolbarModule} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserModule} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {environment} from '../environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {CoreModule} from './core/core.module';
 import {ListModule} from './list/list.module';
 
 @NgModule({
@@ -16,11 +20,15 @@ import {ListModule} from './list/list.module';
   ],
   imports: [
     BrowserModule,
-    CoreModule,
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([]),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     ListModule,
     AppRoutingModule,
     NoopAnimationsModule,
     MatToolbarModule,
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [],
