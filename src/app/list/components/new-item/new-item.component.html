@@ -1,0 +1,15 @@
+<mat-form-field class="filter">
+  <input matInput
+         maxlength="{{titleMaxLength}}"
+         placeholder="Add item..."
+         [(ngModel)]="input"
+         (ngModelChange)="updateFilter()"
+  >
+</mat-form-field>
+
+<div *ngIf="input?.trim().length > 0"
+     class="new-item"
+     (click)="addItem()">
+  <span class="title">{{input}}</span>
+  <mat-icon class="icon" color="accent">add_circle</mat-icon>
+</div>

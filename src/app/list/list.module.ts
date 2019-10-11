@@ -1,13 +1,14 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
-import {AdderComponent} from './components/adder/adder.component';
 import {HistoryComponent} from './components/history/history.component';
 import {ListToolbarComponent} from './components/list-toolbar/list-toolbar.component';
-import {ListViewComponent} from './components/list-view/list-view.component';
 import {ListComponent} from './components/list/list.component';
+import {AdderComponent} from './containers/adder/adder.component';
+import {ListViewComponent} from './containers/list-view/list-view.component';
 import {ListRoutingModule} from './list-routing.module';
 import {ListStoreModule} from './list-store/list-store.module';
+import { NewItemComponent } from './components/new-item/new-item.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {ListStoreModule} from './list-store/list-store.module';
     AdderComponent,
     HistoryComponent,
     ListComponent,
-    ListToolbarComponent
+    ListToolbarComponent,
+    NewItemComponent
   ],
   imports: [
     SharedModule,

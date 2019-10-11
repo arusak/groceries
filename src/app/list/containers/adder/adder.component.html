@@ -1,0 +1,10 @@
+<mat-card>
+  <app-new-item [titleMaxLength]="titleMaxLength"
+                (onUpdateFilter)="updateFilter($event)"
+                (onAddItem)="addFromInput($event)"
+  ></app-new-item>
+
+  <app-history [list]="history$ | async"
+               (onChoose)="addFromHistory($event)"
+  ></app-history>
+</mat-card>

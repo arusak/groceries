@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {ListItemModel} from '../../../models/list-item.model';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.sass']
+  styleUrls: ['./list.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
   @Input() list: Array<ListItemModel>;
