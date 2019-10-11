@@ -5,7 +5,7 @@ export const historyApiActions = {
   getAllSuccess: createAction('[History API] Read success', props<{ items: Array<HistoryItemModel> }>()),
   getAllError: createAction('[History API] Read error'),
 
-  addSuccess: createAction('[History API] Add success', props<{ items: Array<HistoryItemModel> }>()),
+  addSuccess: createAction('[History API] Add success', props<{ item: HistoryItemModel }>()),
   addError: createAction('[History API] Add error'),
 
   updateSuccess: createAction('[History API] Update success', props<{ item: HistoryItemModel }>()),

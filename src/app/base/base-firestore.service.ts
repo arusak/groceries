@@ -27,11 +27,12 @@ export abstract class BaseFirestoreService<T extends { id?: string }> {
       .pipe(tap(collection => this.groupLog(`Firestore Streaming [${this.basePath}] [collection$]`, collection)),);
   }
 
-  create(value: T): Promise<any> {
+  create(value: T): Promise<T> {
     const id = this.db.createId();
     const doc = {...value, id};
     return this.collection.doc(id).set(doc)
-      .then(() => this.groupLog(`Firestore Service [${this.basePath}] [create]`, '[Id]', id, value));
+      .then(() => this.groupLog(`Firestore Service [${this.basePath}] [create]`, '[Id]', id, value))
+      .then(() => doc);
   }
 
   update(item: T): Promise<any> {

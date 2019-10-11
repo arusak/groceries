@@ -16,10 +16,9 @@ export class HistoryService {
     return this.firestoreService.collection$();
   }
 
-  add(title: string): Observable<Array<HistoryItemModel>> {
+  add(title: string): Observable<HistoryItemModel> {
     let newItem = HistoryItemModel.createByTitle(title);
-    return fromPromise(this.firestoreService.create(newItem))
-      .pipe(mergeMapTo(this.firestoreService.collection$()));
+    return fromPromise(this.firestoreService.create(newItem));
   }
 
   update(item: HistoryItemModel): Observable<HistoryItemModel> {

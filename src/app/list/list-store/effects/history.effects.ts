@@ -23,7 +23,7 @@ export class HistoryEffects {
     ofType(historyActions.add),
     pluck('title'),
     mergeMap(title => this.historyService.add(title).pipe(
-      map(items => historyApiActions.addSuccess({items})),
+      map(item => historyApiActions.addSuccess({item})),
       catchError(() => of(historyApiActions.addError()))
       )
     )

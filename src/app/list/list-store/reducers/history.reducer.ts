@@ -17,25 +17,21 @@ export const initialHistoryState: HistoryState = {
 
 export const historyReducer = createReducer(
   initialHistoryState,
-  on(historyApiActions.addSuccess, (state, {items}) => {
-    return {
-      ...state,
-      filter: '',
-      items: [...items]
-    };
-  }),
+
   on(historyApiActions.addError, (state) => {
     return {
       ...state,
       error: 'Error adding a new item'
     };
   }),
+
   on(historyApiActions.getAllSuccess, (state, {items}) => {
     return {
       ...state,
       items: [...items]
     };
   }),
+
   on(historyApiActions.getAllError, (state) => {
     return {
       ...state,
@@ -43,19 +39,11 @@ export const historyReducer = createReducer(
       error: 'Error getting history (check connection)'
     };
   }),
+
   on(historyActions.changeFilter, (state, {term}) => {
     return {
       ...state,
       filter: term,
-    };
-  }),
-  on(historyApiActions.updateSuccess, (state, {item}) => {
-    let itemPos = state.items.findIndex(cur => cur.id === item.id);
-    let items = state.items.slice(0);
-    items[itemPos] = item;
-    return {
-      ...state,
-      items
     };
   }),
 );

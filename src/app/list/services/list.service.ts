@@ -18,8 +18,7 @@ export class ListService {
 
   add(title: string): Observable<ListItemModel> {
     let newItem = ListItemModel.createByTitle(title);
-    return fromPromise(this.firestoreService.create(newItem))
-      .pipe(mapTo(newItem));
+    return fromPromise(this.firestoreService.create(newItem));
   }
 
   update(item: ListItemModel): Observable<ListItemModel> {
