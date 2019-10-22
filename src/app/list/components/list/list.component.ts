@@ -15,4 +15,8 @@ export class ListComponent {
   mark(item: ListItemModel, checked: boolean) {
     this.updateItem.emit(ListItemModel.update(item, {marked: checked}));
   }
+
+  remove(item: ListItemModel) {
+    this.removeItem.emit(item);
+  }
 }

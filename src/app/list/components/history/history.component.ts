@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {HistoryItemModel} from '../../../models/history-item.model';
 
 @Component({
@@ -7,15 +7,9 @@ import {HistoryItemModel} from '../../../models/history-item.model';
   styleUrls: ['./history.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
   @Input() list: Array<HistoryItemModel>;
   @Output() onChoose = new EventEmitter<HistoryItemModel>();
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
   choose(item: HistoryItemModel) {
     this.onChoose.emit(item);

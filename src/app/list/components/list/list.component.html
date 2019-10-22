@@ -1,12 +1,18 @@
 <mat-card class="card">
-  <mat-list class="list" *ngIf="list.length > 0; else empty">
+  <mat-list class="list" *ngIf="list?.length > 0; else empty">
     <mat-list-item *ngFor="let item of list"
                    class="item"
                    [ngClass]="{marked: item.marked}">
-      <mat-checkbox #ch [checked]="item.marked" (change)="mark(item, ch.checked)">{{item.title}}</mat-checkbox>
-      <span class="button">
+
+      <mat-checkbox #ch [checked]="item.marked"
+                    (change)="mark(item, ch.checked)">
+        {{item.title}}
+      </mat-checkbox>
+
+      <span class="button-container">
           <button mat-icon-button
-                  (click)="removeItem.emit(item)">
+                  title="Remove"
+                  (click)="remove(item)">
             <mat-icon>remove_circle_outline</mat-icon>
           </button>
       </span>

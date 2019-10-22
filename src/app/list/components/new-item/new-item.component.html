@@ -1,6 +1,7 @@
 <mat-form-field class="filter">
-  <input matInput
-         maxlength="{{titleMaxLength}}"
+  <input class="input"
+         matInput
+         [attr.maxlength]="titleMaxLength"
          placeholder="Add item..."
          [(ngModel)]="input"
          (ngModelChange)="updateFilter()"

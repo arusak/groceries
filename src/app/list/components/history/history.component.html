@@ -1,4 +1,4 @@
-<mat-action-list *ngIf="list.length > 0">
+<mat-action-list class="list" *ngIf="list?.length > 0">
   <mat-list-item *ngFor="let item of list"
                  (click)="choose(item)"
                  class="item"
