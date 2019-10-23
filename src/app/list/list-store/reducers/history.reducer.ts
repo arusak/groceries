@@ -6,17 +6,30 @@ import {historyActions} from '../actions/history.actions';
 export interface HistoryState {
   items: Array<HistoryItemModel>,
   filter: string,
+  loading: boolean,
   error?: string
 }
 
 export const initialHistoryState: HistoryState = {
   items: [],
   filter: '',
-  error: undefined
+  loading: false,
+  error: null
 };
 
 export const historyReducer = createReducer(
   initialHistoryState,
+
+  on(
+    historyActions.add,
+    historyActions.update,
+    state => {
+      return {
+        ...state,
+        error: null
+      };
+    }
+  ),
 
   on(historyApiActions.addError, (state) => {
     return {
@@ -25,9 +38,19 @@ export const historyReducer = createReducer(
     };
   }),
 
+  on(historyActions.getAll, state => {
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    }
+  ),
+
   on(historyApiActions.getAllSuccess, (state, {items}) => {
     return {
       ...state,
+      loading: false,
       items: [...items]
     };
   }),
@@ -36,6 +59,7 @@ export const historyReducer = createReducer(
     return {
       ...state,
       items: [],
+      loading: false,
       error: 'Error getting history (check connection)'
     };
   }),

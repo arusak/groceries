@@ -3,7 +3,7 @@ import {ListItemModel} from '../../../models/list-item.model';
 
 export const listActions = {
   getAll: createAction('[List] Get all'),
-  addToList: createAction('[List] Add', props<{ title: string }>()),
+  add: createAction('[List] Add', props<{ title: string }>()),
   remove: createAction('[List] Remove', props<{ item: ListItemModel }>()),
   removeMarked: createAction('[List] Remove Marked'),
   update: createAction('[List] Update', props<{ item: ListItemModel }>()),

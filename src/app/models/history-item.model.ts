@@ -1,6 +1,10 @@
 export class HistoryItemModel {
+  static update(item: HistoryItemModel, update: Partial<HistoryItemModel>) {
+    return new HistoryItemModel(update.title || item.title, update.count || item.count, update.id || item.id);
+  }
+
   static increaseCount(item) {
-    return new HistoryItemModel(item.title, item.count + 1, item.id);
+    return HistoryItemModel.update(item, {count: item.count + 1});
   }
 
   static createByTitle(title: string) {

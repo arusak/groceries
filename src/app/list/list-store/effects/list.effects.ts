@@ -1,62 +1,56 @@
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Actions, Effect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
-import {catchError, map, mergeMap, pluck, startWith, switchMapTo} from 'rxjs/operators';
+import {catchError, exhaustMap, map, mergeMap, pluck, startWith, switchMap} from 'rxjs/operators';
 import {ListService} from '../../services/list.service';
 import {listApiActions} from '../actions/list-api.actions';
 import {listActions} from '../actions/list.actions';
 
 @Injectable()
 export class ListEffects {
-  getAll$ = createEffect(() => this.actions$.pipe(
+  @Effect()
+  getAll$ = this.actions$.pipe(
     ofType(listActions.getAll),
     startWith(listActions.getAll()),
-    switchMapTo(
-      this.listService.getList().pipe(
-        map(list => listApiActions.getAllSuccess({items: list})),
-        catchError(() => of(listApiActions.getAllError()))
-      )
-    )
-  ));
+    switchMap(() => this.listService.getAll()),
+    map(list => listApiActions.getAllSuccess({items: list})),
+    catchError(() => of(listApiActions.getAllError()))
+  );
 
-  add$ = createEffect(() => this.actions$.pipe(
-    ofType(listActions.addToList),
+  @Effect()
+  add$ = this.actions$.pipe(
+    ofType(listActions.add),
     pluck('title'),
-    mergeMap(title => this.listService.add(title).pipe(
-      map(item => listApiActions.addSuccess({item})),
-      catchError(() => of(listApiActions.addError()))
-      )
-    )
-  ));
+    mergeMap(title => this.listService.add(title)),
+    map(item => listApiActions.addSuccess({item})),
+    catchError(() => of(listApiActions.addError()))
+  );
 
-  update$ = createEffect(() => this.actions$.pipe(
+  @Effect()
+  update$ = this.actions$.pipe(
     ofType(listActions.update),
     pluck('item'),
-    mergeMap(item => this.listService.update(item).pipe(
-      map(item => listApiActions.updateSuccess({item})),
-      catchError(() => of(listApiActions.updateError()))
-      )
-    )
-  ));
+    exhaustMap(item => this.listService.update(item)),
+    map(item => listApiActions.updateSuccess({item})),
+    catchError(() => of(listApiActions.updateError()))
+  );
 
-  remove$ = createEffect(() => this.actions$.pipe(
+  @Effect()
+  remove$ = this.actions$.pipe(
     ofType(listActions.remove),
     pluck('item'),
-    mergeMap(item => this.listService.remove(item).pipe(
-      map(item => listApiActions.removeSuccess({item})),
-      catchError(() => of(listApiActions.removeError()))
-      )
-    )
-  ));
+    exhaustMap(item => this.listService.remove(item)),
+    map(item => listApiActions.removeSuccess({item})),
+    catchError(() => of(listApiActions.removeError()))
+  );
 
-  removeMarked$ = createEffect(() => this.actions$.pipe(
+  @Effect()
+  removeMarked$ = this.actions$.pipe(
     ofType(listActions.removeMarked),
-    mergeMap(() => this.listService.removeMarked().pipe(
-      map(items => listApiActions.batchRemoveSuccess({items})),
-      catchError(() => of(listApiActions.batchRemoveError()))
-      )
-    )
-  ));
+    switchMap(() => this.listService.removeMarked()),
+    map(items => listApiActions.batchRemoveSuccess({items})),
+    catchError(() => of(listApiActions.batchRemoveError()))
+  );
 
   constructor(private actions$: Actions, private listService: ListService) {
   }

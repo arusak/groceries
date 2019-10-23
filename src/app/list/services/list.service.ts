@@ -12,7 +12,7 @@ export class ListService {
   constructor(private firestoreService: ListFirestoreService) {
   }
 
-  getList(): Observable<Array<ListItemModel>> {
+  getAll(): Observable<Array<ListItemModel>> {
     return this.firestoreService.collection$();
   }
 

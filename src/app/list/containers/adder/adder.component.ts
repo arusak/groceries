@@ -27,7 +27,7 @@ export class AdderComponent {
   }
 
   addFromHistory(item: HistoryItemModel) {
-    this.addItem(item.title, historyActions.updateItem({item: HistoryItemModel.increaseCount(item)}));
+    this.addItem(item.title, historyActions.update({item: HistoryItemModel.increaseCount(item)}));
   }
 
   updateFilter(term) {
@@ -35,7 +35,7 @@ export class AdderComponent {
   }
 
   private addItem(title: string, historyAction: Action) {
-    this.store.dispatch(listActions.addToList({title}));
+    this.store.dispatch(listActions.add({title}));
     this.store.dispatch(historyAction);
     this.newItemComponent.resetFilter();
   }
