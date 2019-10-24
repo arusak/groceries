@@ -22,7 +22,7 @@ export class ListViewComponent extends BasePage implements OnInit {
     super();
 
     this.items$ = this.store.select(selectListItems).pipe(takeUntil(this.unsubscribe$));
-    this.error$ = this.store.select(selectListError).pipe(takeUntil(this.unsubscribe$), filter((v: string) => v !== undefined));
+    this.error$ = this.store.select(selectListError).pipe(takeUntil(this.unsubscribe$), filter((e: string) => e !== null));
   }
 
   ngOnInit() {
